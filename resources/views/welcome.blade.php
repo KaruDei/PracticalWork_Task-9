@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Task9-laravel</title>
-</head>
-<body>
-	
-</body>
-</html>
+@extends('layouts.structure')
+
+@section('title')Авторизация@endsection
+
+
+@section('content')
+
+	<div class="auth_container">
+		
+	</div>
+
+@endsection
