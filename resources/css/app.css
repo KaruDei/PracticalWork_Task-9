@@ -1,9 +1,15 @@
+@font-face {
+	font-family: "Adobe Garamond Pro - Regular";
+	src: url(../fonts/AGaramondPro-Regular.ttf);
+}
+
 * {
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
 	text-decoration: none;
 	color: #000;
+	font-family: "Adobe Garamond Pro - Regular";
 }
 
 html, body {
@@ -19,7 +25,8 @@ html, body {
 
 .container {
 	margin: 0 auto;
-	max-width: 1200px;
+	padding: 0px 20px;
+	max-width: 1240px;
 	width: 100%;
 	height: 100%;
 }
@@ -30,7 +37,7 @@ main {
 
 header {
 	height: 70px;
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid #000;
 }
 
 .header_flex {
@@ -46,7 +53,7 @@ footer {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-top: 2px solid black;
+	border-top: 2px solid #000;
 }
 
 .menu {
@@ -56,4 +63,196 @@ footer {
 
 .menu > a:hover {
 	text-decoration: underline;
+}
+
+/* WELCOME */
+
+.sign_wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.sign_container {
+	width: 450px;
+	min-height: 350px;
+	padding: 20px 0px;
+	border: 2px solid #000;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 50px;
+}
+
+.sign_text_block {
+	text-align: center;
+	padding: 0px 10px;
+}
+
+.sign_btn_block {
+	display: flex;
+	gap: 50px;
+	font-size: 18px;
+}
+
+.sign_btn_auth {
+	border: 2px solid #000;
+	border-radius: 20px;
+	padding: 7px 20px;
+}
+
+.sign_btn_auth:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+.sign_btn_reg {
+	border: 2px solid #000;
+	border-radius: 20px;
+	padding: 7px 20px;
+}
+
+.sign_btn_reg:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+/* Auth, Reg */
+
+.sign_form {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	width: 100%;
+	padding: 0px 20px;
+}
+
+.required {
+	color: #E75555;
+}
+
+.input_label {
+
+}
+
+.input_title {
+	margin: 0px 0px 7px 0px;
+}
+
+.sign_input {
+	width: 100%;
+	min-height: 35px;
+	border-radius: 20px;
+	padding: 5px 15px;
+	border: 2px solid #000;
+	font-size: 16px;
+}
+
+.sign_input_file {
+	width: 100%;
+	min-height: 35px;
+	font-size: 16px;
+}
+
+.sign_btn {
+	border: 2px solid #000;
+	min-height: 35px;
+	border-radius: 20px;
+	padding: 7px 20px;
+	background-color: #fff;
+	color: #000;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.sign_btn:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+/* LIBRARY */
+
+.book_items {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+
+	margin: 20px 0px;
+}
+
+.book_item {
+	max-height: 400px;
+	max-width: 285px;
+}
+
+.book_item > img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+/* PROFILE */
+
+.profile_info_block {
+	margin: 20px;
+	display: flex;
+	gap: 50px;
+	justify-content: center;
+	align-items: center;
+}
+
+.profile_info_img {
+	max-width: 250px;
+	max-height: 250px;
+}
+
+.profile_info_img > img {
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 100%;
+	object-fit: cover;
+}
+
+.profile_info_text {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.profile_info_btn {
+
+}
+
+.profile_comment_block {
+	
+}
+
+.profile_comment_block_title {
+	border-bottom: 2px solid black;
+}
+
+.profile_comment_items {
+	margin: 20px 0px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.profile_comment_item {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.profile_comment_user_info {
+	display: flex;
+	justify-content: space-between;
+}
+
+.profile_comment_text {
+	text-align: justify;
 }
