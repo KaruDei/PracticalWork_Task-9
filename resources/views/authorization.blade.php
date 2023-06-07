@@ -9,17 +9,29 @@
 			<h1>AUTHIRIZATION</h1>
 		</div>
 
-		<form action="" method="POST" class="sign_form">
-			
-			<label for="" class="input_label"><p class="input_title">Email</p>
-				<input type="text" class="sign_input">
+		@if ($errors -> any())
+			 <div class="error-block">
+				<h4>WARNING!</h4>
+				<ul>
+					@foreach ($errors -> all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			 </div>
+		@endif
+
+		<form action="{{ route('auth-form') }}" method="POST" class="sign_form">
+		@csrf
+
+			<label for="email" class="input_label"><p class="input_title">Email</p>
+				<input type="text" name="email" id="email" class="sign_input">
 			</label>
 
-			<label for="" class="input_label"><p class="input_title">Password</p> 
-				<input type="password" class="sign_input">
+			<label for="password" class="input_label"><p class="input_title">Password</p> 
+				<input type="password" name="password" id="password" class="sign_input">
 			</label>
 
-			<input type="submit" class="sign_btn" value="LOGIN">
+			<input type="submit" name="auth-sub" class="sign_btn" value="LOGIN">
 		</form>
 	</div>
 
