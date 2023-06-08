@@ -20,7 +20,7 @@
 			 </div>
 		@endif
 
-		<form action="{{ route('auth-form') }}" method="POST" class="sign_form">
+		<form action="{{ route('auth_form') }}" method="POST" class="sign_form">
 		@csrf
 
 			<label for="email" class="input_label"><p class="input_title">Email</p>

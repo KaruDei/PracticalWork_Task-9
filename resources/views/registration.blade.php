@@ -11,7 +11,7 @@
 		
 		@include('inc.messages')
 
-		<form action="{{ route('reg-form') }}" method="POST" enctype="multipart/form-data" class="sign_form">
+		<form action="{{ route('reg_form') }}" method="POST" enctype="multipart/form-data" class="sign_form">
 		@csrf
 
 			<label for="surname" class="input_label"><p class="input_title">Surname <span class="required">*</span></p>

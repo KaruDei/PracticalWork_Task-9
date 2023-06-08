@@ -7,17 +7,22 @@
 
 	<div class="profile_info_block">
 		<div class="profile_info_img">
-			<img src="{{ asset('imgs/profile/3sohhcx7rrw91.jpg') }}" alt="">
+			@if ($data->avatar === NULL)
+				<img src="{{ asset('imgs/profile/3sohhcx7rrw91.jpg') }}" alt="">
+			@else
+				<img src="{{ asset('imgs/profile/'.$data->avatar) }}" alt="">
+			@endif
 		</div>
 		<div class="profile_info_text">
-			<p><strong>Surname:</strong> user</p>
-			<p><strong>Name:</strong> user</p>
-			<p><strong>L-Name:</strong> user</p>
-			<p><strong>Email:</strong> user@mail.ru</p>
+			<p><strong>Surname:</strong> {{ $data->surname }} </p>
+			<p><strong>Name:</strong> {{ $data->name }} </p>
+			<p><strong>L-Name:</strong> {{ $data->l_name }} </p>
+			<p><strong>Email:</strong> {{ $data->email }} </p>
 			
 			<div class="sign_btn_block">
-				<a href="{{route('edit-profile')}}" class="sign_btn_auth">EDIT</a>
-				<a href="{{route('my-comments')}}" class="sign_btn_auth">MY COMMENTS</a>
+				<a href="{{route('edit_profile', $data->id)}}" class="sign_btn_auth">EDIT</a>
+				<a href="{{route('my_comments')}}" class="sign_btn_auth">MY COMMENTS</a>
+				<a href="{{route('delete_user', $data->id)}}" class="sign_btn_auth">DELETE</a>
 			</div>
 		</div>
 	</div>
@@ -25,7 +30,7 @@
 	<div class="profile_comment_block">
 		<h1 class="profile_comment_block_title">COMMENTS</h1>
 
-		<form action="{{ route('comment-form') }}" method="POST" class="profile_comment_add">
+		<form action="{{ route('comment_form') }}" method="POST" class="profile_comment_add">
 		@csrf
 
 			<label for="comment-title"><p>Title:</p>
