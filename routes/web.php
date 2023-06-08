@@ -26,7 +26,9 @@ Route::get('/auth', function () {
 	return view('authorization');
 }) -> name('auth');
 
-Route::post('/auth/submit', 'App\Http\Controllers\UsersController@auth') -> name('auth-form');
+Route::post('/auth/submit',
+	'App\Http\Controllers\UsersController@auth'
+) -> name('auth_form');
 
 /* REGISTRATION */
 
@@ -34,41 +36,53 @@ Route::get('/reg', function () {
 	return view('registration');
 }) -> name('reg');
 
-Route::post('/reg/submit', 'App\Http\Controllers\UsersController@reg') -> name('reg-form');
+Route::post('/reg/submit',
+	'App\Http\Controllers\UsersController@reg'
+) -> name('reg_form');
 
 /* PROFILE */
 
-Route::get('/profile', function () {
-	return view('profile');
-}) -> name('profile');
+Route::get(
+	'/profile/id/{',
+	'App\Http\Controllers\UsersController@out_user'
+) -> name('profile');
 
 Route::post('/profile/comment', function () {
 	
-}) -> name('comment-form');
+}) -> name('comment_form');
 
-Route::get('/profile/edit-profile', function () {
-	return view('profile');
-}) -> name('edit-profile');
+Route::get(
+	'/profile/{id}/edit',
+	'App\Http\Controllers\UsersController@edit_profile'
+) -> name('edit_profile');
+
+Route::post(
+	'/profile/{id}/edit',
+	'App\Http\Controllers\UsersController@edit_form'
+) -> name('edit_form');
+
+Route::get(
+	'/profile/{id}/delete',
+	'App\Http\Controllers\UsersController@delete_user'
+) -> name('delete_user');
 
 Route::get('/profile/my-comments', function () {
 	return view('profile');
-}) -> name('my-comments');
+}) -> name('my_comments');
 
 /* PEOPLE */
 
-// Route::get('/people', function () {
-// 	return view('people');
-// }) -> name('people');
+Route::get('/people',
+	'App\Http\Controllers\UsersController@out_users'
+) -> name('people');
 
-Route::get('/people', 'App\Http\Controllers\UsersController@out_users') -> name('people');
-
-Route::get('/profile/id', function () {
-	return view('profile');
-}) -> name('people-profile');
+Route::get('/profile/id/{id}',
+	'App\Http\Controllers\UsersController@out_user'
+) -> name('people_profile');
 
 
 /* LIBRARY */
 
 Route::get('/book/id', function () {
 	return view('library');
-}) -> name('book-page');
+}) -> name('book_page');
