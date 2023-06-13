@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return view('library');
+	return view('welcome');
 }) -> name('home');
-
-Route::get('/exit', function () {
-	return view('library');
-}) -> name('exit');
 
 /* AUTHORIZATION */
 
@@ -26,9 +23,15 @@ Route::get('/auth', function () {
 	return view('authorization');
 }) -> name('auth');
 
-Route::post('/auth/submit',
+Route::post(
+	'/auth/submit',
 	'App\Http\Controllers\UsersController@auth'
 ) -> name('auth_form');
+
+Route::get(
+	'/logout',
+	'App\Http\Controllers\UsersController@logout'
+) -> name('logout');
 
 /* REGISTRATION */
 
@@ -36,53 +39,77 @@ Route::get('/reg', function () {
 	return view('registration');
 }) -> name('reg');
 
-Route::post('/reg/submit',
+Route::post(
+	'/reg/submit',
 	'App\Http\Controllers\UsersController@reg'
 ) -> name('reg_form');
 
 /* PROFILE */
 
-Route::get(
-	'/profile/id/{',
-	'App\Http\Controllers\UsersController@out_user'
-) -> name('profile');
+// Route::get(
+// 	'/profile/{id}',
+// 	'App\Http\Controllers\UsersController@out_user'
+// ) -> name('profile');
+Route::middleware('CheckAuthMiddleware') -> group(function () {
 
-Route::post('/profile/comment', function () {
+	Route::get ('/profile/{id}', function () {
+		return view('profile', ['data' => Auth::user()]);
+	}) -> name('profile');
+
+	// Route::post('/profile/comment', function () {
+
+	// }) -> name('comment_form');
+
+	Route::get(
+		'/profile/{id}/edit',
+		'App\Http\Controllers\UsersController@edit_profile'
+	) -> name('edit_profile');
+
+	Route::post(
+		'/profile/{id}/edit',
+		'App\Http\Controllers\UsersController@edit_form'
+	) -> name('edit_form');
+
+	Route::get(
+		'/profile/{id}/delete',
+		'App\Http\Controllers\UsersController@delete_user'
+	) -> name('delete_user');
+
+	Route::post(
+		'/profile/{id}',
+		'App\Http\Controllers\UsersController@add_comment'
+	) -> name('add_comment');
 	
-}) -> name('comment_form');
+	Route::get(
+		'/profile/{id}/{del}',
+		'App\Http\Controllers\UsersController@delete_comment'
+	) -> name('delete_comment');
 
-Route::get(
-	'/profile/{id}/edit',
-	'App\Http\Controllers\UsersController@edit_profile'
-) -> name('edit_profile');
+	Route::get('/profile/my-comments', function () {
+		return view('profile');
+	}) -> name('my_comments');
 
-Route::post(
-	'/profile/{id}/edit',
-	'App\Http\Controllers\UsersController@edit_form'
-) -> name('edit_form');
+	
+	/* LIBRARY */
 
-Route::get(
-	'/profile/{id}/delete',
-	'App\Http\Controllers\UsersController@delete_user'
-) -> name('delete_user');
+	Route::get('/library', function () {
+		return view('library');
+	}) -> name('library');
 
-Route::get('/profile/my-comments', function () {
-	return view('profile');
-}) -> name('my_comments');
+	Route::get('/library/id', function () {
+		return view('library');
+	}) -> name('book_page');
+
+});
 
 /* PEOPLE */
 
-Route::get('/people',
+Route::get(
+	'/people',
 	'App\Http\Controllers\UsersController@out_users'
 ) -> name('people');
 
-Route::get('/profile/id/{id}',
+Route::get(
+	'/profile/user/{id}',
 	'App\Http\Controllers\UsersController@out_user'
 ) -> name('people_profile');
-
-
-/* LIBRARY */
-
-Route::get('/book/id', function () {
-	return view('library');
-}) -> name('book_page');

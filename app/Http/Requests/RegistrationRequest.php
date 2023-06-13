@@ -25,7 +25,7 @@ class RegistrationRequest extends FormRequest
 				'surname' => 'required|min:3|max:255',
 				'name' => 'required|min:3|max:255',
 				'email' => 'required|email:rfc,dns',
-				'password' => 'required|min:5|max:255',
+				'password' => 'required|min:3|max:255',
 				'avatar' => 'image'
 		];
 	}

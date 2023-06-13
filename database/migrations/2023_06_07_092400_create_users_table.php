@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
 				$table->string('surname');
 				$table->string('name');
-				$table->string('l_name');
+				$table->string('l_name') -> nullable();
 				$table->string('email');
 				$table->string('password');
-				$table->string('avatar');
+				$table->string('avatar') -> nullable();
             $table->timestamps();
         });
     }

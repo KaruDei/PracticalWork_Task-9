@@ -6,12 +6,18 @@
 			</div>
 
 			<nav class="menu">
-				<a href="{{route('home')}}">Books</a>
+				<a href="{{route('home')}}">Home</a>
+				<a href="{{route('library')}}">Books</a>
 				<a href="{{route('people')}}">People</a>
-				<a href="{{route('profile')}}">Profile</a>
-				<a href="{{route('auth')}}">Sing In</a>
-				<a href="{{route('reg')}}">Sing Up</a>
-				<a href="{{route('exit')}}">Exit</a>
+				@if (Auth::user())
+					<a href="{{route('profile', Auth::user() -> id)}}">Profile</a>
+					<a href="{{route('logout')}}">Exit</a>
+				@else
+					<a href="{{route('auth')}}">Sing In</a>
+					<a href="{{route('reg')}}">Sing Up</a>
+				@endif
+				
+				
 			</nav>
 		</div>
 	</div>

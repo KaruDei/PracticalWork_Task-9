@@ -26,22 +26,22 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="profile_comment_block">
 		<h1 class="profile_comment_block_title">COMMENTS</h1>
 
-		<form action="{{ route('comment_form') }}" method="POST" class="profile_comment_add">
+		<form action="{{ route('add_comment', $data->id) }}" method="POST" class="profile_comment_add">
 		@csrf
 
-			<label for="comment-title"><p>Title:</p>
-				<input type="text" name="comment-title" id="comment-title" class="profile_comment_add_title">
+			<label for="comment_title"><p>Title:</p>
+				<input type="text" name="comment_title" id="comment_title" class="profile_comment_add_title">
 			</label>
 
-			<label for="comment-text"><p>Text:</p>
-				<textarea name="comment-text" id="comment-text" class="profile_comment_add_text"></textarea>
+			<label for="comment_text"><p>Text:</p>
+				<textarea name="comment_text" id="comment_text" class="profile_comment_add_text"></textarea>
 			</label>
 
-			<input type="submit" name="comment-sub" value="ADD" class="profile_comment_add_btn">
+			<input type="submit" name="comment_sub" value="ADD" class="profile_comment_add_btn">
 		</form>
 
 		<div class="profile_comment_items">

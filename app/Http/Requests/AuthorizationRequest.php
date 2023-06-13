@@ -23,7 +23,7 @@ class AuthorizationRequest extends FormRequest
 	{
 		return [
 			'email' => 'required|email:rfc,dns',
-			'password' => 'required|min:5|max:255',
+			'password' => 'required|min:3|max:255',
 		];
 	}
 }
