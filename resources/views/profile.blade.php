@@ -18,12 +18,15 @@
 			<p><strong>Name:</strong> {{ $data->name }} </p>
 			<p><strong>L-Name:</strong> {{ $data->l_name }} </p>
 			<p><strong>Email:</strong> {{ $data->email }} </p>
-			
-			<div class="sign_btn_block">
-				<a href="{{route('edit_profile', $data->id)}}" class="sign_btn_auth">EDIT</a>
-				<a href="{{route('my_comments')}}" class="sign_btn_auth">MY COMMENTS</a>
-				<a href="{{route('delete_user', $data->id)}}" class="sign_btn_auth">DELETE</a>
-			</div>
+			@if (Auth::check())
+				@if (Auth::user()->id == $data->id)
+					<div class="sign_btn_block">
+						<a href="{{route('edit_profile', $data->id)}}" class="sign_btn_auth">EDIT</a>
+						<a href="{{route('my_comments', ['id' => $data->id])}}" class="sign_btn_auth">MY COMMENTS</a>
+						<a href="{{route('delete_user', $data->id)}}" class="sign_btn_auth">DELETE</a>
+					</div>
+				@endif
+			@endif
 		</div>
 	</div>
 	
@@ -32,6 +35,9 @@
 
 		<form action="{{ route('add_comment', $data->id) }}" method="POST" class="profile_comment_add">
 		@csrf
+
+			<input type="hidden" name="profile_id" value="{{ $data->id }}">
+			<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 
 			<label for="comment_title"><p>Title:</p>
 				<input type="text" name="comment_title" id="comment_title" class="profile_comment_add_title">
@@ -46,27 +52,31 @@
 
 		<div class="profile_comment_items">
 
-			<div class="profile_comment_item">
-				<h2 class="profile_comment_title">Comment title</h2>
-				<div class="profile_comment_user_info">
-					<h4>User User</h4>
-				</div>
-				<div class="profile_comment_text">
-					<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti mollitia ratione, accusamus sit fuga odio? Eius amet voluptatem quam magni. Porro sed culpa similique explicabo! Quis perferendis a dolor excepturi vel? Harum rerum tempora ipsa magnam nesciunt earum saepe autem, aspernatur sint incidunt, quasi, consectetur totam ab fugit natus. Animi quos illum repellat, quaerat velit alias mollitia quis odio molestiae a quisquam officia itaque ipsa accusamus! Consectetur ipsa, fugit in molestias expedita dignissimos fuga alias omnis tempore quisquam sequi ullam facilis, nostrum dolore. Reiciendis reprehenderit quisquam fugiat minima molestias repudiandae tenetur magni id, nulla illum fuga aspernatur temporibus, iusto vero.</p>
-				</div>
-			</div>
+			@if ($comments <> '[]')
+				@foreach ($comments as $comment)
+				@foreach ($users as $user)
+					@if ($user->id == $comment->user_id)
+						<div class="profile_comment_item">
+							<h2 class="profile_comment_title">{{$comment->title}}</h2>
+							<div class="profile_comment_user_info">
+								<h4>{{$user->surname}} {{$user->name}} {{$user->l_name}}</h4>
+								@if (Auth::check())
+									@if (Auth::user()->id == $user->id)
+										<a href="{{ route('delete_comment', ['id' => $data->id , 'del' => $comment->id]) }}" class="underline">Delete</a>
+									@endif
+								@endif
+							</div>
+							<div class="profile_comment_text">
+								<p>{{$comment->text}}</p>
+							</div>
+						</div>
+					@endif
+				@endforeach
+				@endforeach
 
-			<div class="profile_comment_item">
-				<h2 class="profile_comment_title">Comment title</h2>
-				<div class="profile_comment_user_info">
-					<h4>User User</h4>
-					<a href="" class="underline">Delete</a>
-				</div>
-				<h4>Answer - User User</h4>
-				<div class="profile_comment_text">
-					<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti mollitia ratione, accusamus sit fuga odio? Eius amet voluptatem quam magni. Porro sed culpa similique explicabo! Quis perferendis a dolor excepturi vel? Harum rerum tempora ipsa magnam nesciunt earum saepe autem, aspernatur sint incidunt, quasi, consectetur totam ab fugit natus. Animi quos illum repellat, quaerat velit alias mollitia quis odio molestiae a quisquam officia itaque ipsa accusamus! Consectetur ipsa, fugit in molestias expedita dignissimos fuga alias omnis tempore quisquam sequi ullam facilis, nostrum dolore. Reiciendis reprehenderit quisquam fugiat minima molestias repudiandae tenetur magni id, nulla illum fuga aspernatur temporibus, iusto vero.</p>
-				</div>
-			</div>
+				<a href="#" class="profile_comment_add_btn" style="text-align: center">ALL</a>
+
+			@endif
 
 		</div>
 	</div>
