@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Comments;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,9 +54,10 @@ Route::post(
 // ) -> name('profile');
 Route::middleware('CheckAuthMiddleware') -> group(function () {
 
-	Route::get ('/profile/{id}', function () {
-		return view('profile', ['data' => Auth::user()]);
-	}) -> name('profile');
+	Route::get(
+		'/profile/{id}',
+		'App\Http\Controllers\UsersController@out_user'
+	) -> name('profile');
 
 	// Route::post('/profile/comment', function () {
 
@@ -85,9 +88,10 @@ Route::middleware('CheckAuthMiddleware') -> group(function () {
 		'App\Http\Controllers\UsersController@delete_comment'
 	) -> name('delete_comment');
 
-	Route::get('/profile/my-comments', function () {
-		return view('profile');
-	}) -> name('my_comments');
+	Route::get(
+		'/my_comments/{id}',
+		'App\Http\Controllers\UsersController@my_comments'
+	) -> name('my_comments');
 
 	
 	/* LIBRARY */
@@ -110,6 +114,6 @@ Route::get(
 ) -> name('people');
 
 Route::get(
-	'/profile/user/{id}',
+	'/people/user/{id}',
 	'App\Http\Controllers\UsersController@out_user'
 ) -> name('people_profile');
